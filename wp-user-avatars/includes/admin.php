@@ -128,8 +128,8 @@ function wp_user_avatars_admin_enqueue_scripts() {
 	$ver = wp_user_avatars_get_asset_version();
 
 	// Enqueue
-	wp_enqueue_script( 'wp-user-avatars',     $url . 'assets/js/user-avatars.js',       array( 'jquery' ),          $ver, true  );
-	wp_enqueue_style( 'wp-user-avatars',      $url . 'assets/css/user-avatars.css',     array(),                    $ver );
+	wp_enqueue_script( 'wp-user-avatars', $url . 'assets/js/user-avatars.js',   array( 'jquery' ), $ver, true  );
+	wp_enqueue_style( 'wp-user-avatars',  $url . 'assets/css/user-avatars.css', array(),           $ver );
 	if ( is_rtl() ) {
 	    wp_enqueue_style( 'wp-user-avatars-rtl',  $url . 'assets/css/user-avatars-rtl.css', array( 'wp-user-avatars' ), $ver );
 	}
@@ -159,7 +159,7 @@ function wp_user_avatars_edit_user_profile( $user = 0 ) {
 	} ?>
 
 	<div id="wp-user-avatars-user-settings">
-		<h3><?php esc_html_e( 'Avatar','wp-user-avatars' ); ?></h3>
+		<h2><?php esc_html_e( 'Avatar','wp-user-avatars' ); ?></h2>
 
 		<?php wp_user_avatars_section_content( $user ); ?>
 
@@ -191,16 +191,10 @@ function wp_user_avatars_section_content( $user = null ) {
 
 			<tr>
 				<th scope="row"><label for="wp-user-avatars"><?php esc_html_e( 'Upload', 'wp-user-avatars' ); ?></label></th>
-				<td id="wp-user-avatars-photo">
-					<?php
-						add_filter( 'pre_option_avatar_rating', '__return_null' );
-						echo get_user_avatar( $user->ID, 250 );
-						remove_filter( 'pre_option_avatar_rating', '__return_null' );
-					?>
-				</td>
-				<td id="wp-user-avatars-actions">
-
-					<?php
+				<td id="wp-user-avatars-photo"><?php
+					echo get_avatar( $user->ID, 250 );
+				?></td>
+				<td id="wp-user-avatars-actions"><?php
 
 					// User needs additional caps to upload avatars
 					if ( current_user_can( 'upload_avatar', $user->ID ) ) : ?>
